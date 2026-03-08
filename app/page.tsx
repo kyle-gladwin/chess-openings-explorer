@@ -1,65 +1,102 @@
-import Image from "next/image";
+import Link from "next/link";
+import ClientHomeBoard from "@/components/ClientHomeBoard";
+import AboutSite from "@/components/AboutSite";
 
-export default function Home() {
+export default function HomePage() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <main className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-[#09090b]">
+      {/* Radial glow */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(99,102,241,0.08)_0%,_transparent_70%)]" />
+
+      <div className="relative z-10 text-center px-6 w-full max-w-[1040px] mx-auto">
+        {/* Title */}
+        <h1 className="text-5xl sm:text-7xl font-bold text-white leading-[1.05] mb-4">
+          Chess Opening
+          <br />
+          <span className="text-indigo-400">Explorer</span>
+        </h1>
+
+        {/* Subtitle */}
+        <p className="text-zinc-400 text-lg sm:text-xl mb-8 leading-relaxed">
+          Start better and win more! <AboutSite />
+        </p>
+
+        {/* Mobile: split single board */}
+        <div className="lg:hidden relative w-[320px] h-[320px] sm:w-[480px] sm:h-[480px] mx-auto rounded-lg overflow-hidden shadow-2xl border border-indigo-500/10">
+          <ClientHomeBoard orientation="white" />
+          <Link
+            href="/openings?color=black"
+            className="absolute inset-x-0 top-0 h-1/2 flex flex-col items-center justify-center gap-2 bg-zinc-950/80 hover:bg-zinc-950/65 transition-colors duration-200 z-10"
+          >
+            <span className="text-xl font-semibold text-white">Playing Black</span>
+            <span className="text-zinc-400 text-xs">React, counterattack, and equalise</span>
+          </Link>
+          <div className="absolute inset-x-0 top-1/2 h-px bg-indigo-500/50 z-20" />
+          <Link
+            href="/openings?color=white"
+            className="absolute inset-x-0 bottom-0 h-1/2 flex flex-col items-center justify-center gap-2 bg-[#f0d9b5]/88 hover:bg-[#f0d9b5]/75 transition-colors duration-200 z-10"
+          >
+            <span className="text-xl font-semibold text-stone-900">Playing White</span>
+            <span className="text-stone-600 text-xs">Control the centre from move one</span>
+          </Link>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
+
+        {/* Desktop: two side-by-side boards */}
+        <div className="hidden lg:flex gap-8 justify-center">
+          {/* White */}
+          <Link
+            href="/openings?color=white"
+            className="relative w-[480px] h-[480px] rounded-lg overflow-hidden shadow-2xl border border-indigo-500/10 hover:border-indigo-500/30 transition-all duration-200 shrink-0"
+          >
+            <ClientHomeBoard orientation="white" />
+            <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-[#f0d9b5]/85 hover:bg-[#f0d9b5]/70 transition-colors duration-200 z-10">
+              <span className="text-2xl font-semibold text-stone-900">Playing White</span>
+              <span className="text-stone-600 text-sm">Control the centre from move one</span>
+            </div>
+          </Link>
+
+          {/* Black */}
+          <Link
+            href="/openings?color=black"
+            className="relative w-[480px] h-[480px] rounded-lg overflow-hidden shadow-2xl border border-indigo-500/10 hover:border-indigo-500/30 transition-all duration-200 shrink-0"
+          >
+            <ClientHomeBoard orientation="black" />
+            <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-zinc-950/80 hover:bg-zinc-950/65 transition-colors duration-200 z-10">
+              <span className="text-2xl font-semibold text-white">Playing Black</span>
+              <span className="text-zinc-400 text-sm">React, counterattack, and equalise</span>
+            </div>
+          </Link>
+        </div>
+
+        {/* Browse all link */}
+        <div className="mt-8">
+          <Link
+            href="/openings"
+            className="text-zinc-500 hover:text-indigo-400 text-sm transition-colors underline underline-offset-4 decoration-zinc-700 hover:decoration-indigo-500"
+          >
+            Explore all openings →
+          </Link>
+        </div>
+      </div>
+
+      {/* Bottom decoration */}
+      <div className="absolute bottom-6 left-0 right-0 text-center">
+        <p
+          className="text-zinc-700 text-xs"
+          style={{ fontFamily: "'JetBrains Mono', monospace" }}
+        >
+          Vibe coded by Kyle Gladwin using Claude and the lichess.org API. See my GitHub{" "}
           <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
+            href="https://github.com/kyle-gladwin"
             target="_blank"
             rel="noopener noreferrer"
+            className="text-zinc-500 hover:text-indigo-400 underline underline-offset-2 transition-colors"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
+            here
           </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+          .
+        </p>
+      </div>
+    </main>
   );
 }
