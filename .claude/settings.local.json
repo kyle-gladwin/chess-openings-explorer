@@ -41,7 +41,13 @@
       "Bash(curl -s -o /dev/null -w \"%{http_code}\" \"https://explorer.lichess.org/lichess?play=e2e4&ratings=1800\")",
       "WebFetch(domain:fontawesome.com)",
       "WebFetch(domain:raw.githubusercontent.com)",
-      "Bash(git init && git add . && git commit -m \"Initial commit\")"
+      "Bash(git init && git add . && git commit -m \"Initial commit\")",
+      "Bash(gh repo create chess-openings-explorer --public --source=. --remote=origin --push 2>&1)",
+      "Bash(which git && git --version)",
+      "Bash(git remote add origin https://github.com/kyle-gladwin/chess-openings-explorer.git && git push -u origin main 2>&1)",
+      "Bash(git add next.config.ts && git commit -m \"Remove basePath — deploying as standalone service\" && git push 2>&1)",
+      "Bash(git commit --allow-empty -m \"Trigger redeploy\" && git push 2>&1)",
+      "Bash(git add .)"
     ]
   }
 }
